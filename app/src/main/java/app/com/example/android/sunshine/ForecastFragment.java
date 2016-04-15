@@ -135,7 +135,13 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&APPID=c19823e9271536693b828d178141161f");
+               // http://api.openweathermap.org/data/2.5/forecast/daily?q=guanacaste&mode=json&units=metric&cnt=7&APPID=c19823e9271536693b828d178141161f
+                String baseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?q=guanacaste&mode=json&units=metric&cnt=7";
+                ///final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
+
+                String apiKey = "&APPID="+"c19823e9271536693b828d178141161f";
+                URL url = new URL(baseUrl.concat(apiKey));
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -147,7 +153,8 @@ public class ForecastFragment extends Fragment {
                 StringBuffer buffer = new StringBuffer();
                 if (inputStream == null) {
                     // Nothing to do.
-                    forecastJsonStr = null;
+                   // forecastJsonStr = null;
+                    return null;
                 }
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -161,14 +168,17 @@ public class ForecastFragment extends Fragment {
 
                 if (buffer.length() == 0) {
                     // Stream was empty.  No point in parsing.
-                    forecastJsonStr = null;
+                    //forecastJsonStr = null;
+                    return null;
                 }
                 forecastJsonStr = buffer.toString();
+                //log.v(LOG_TAG, "Forecats JSON String: " + f)
             } catch (IOException e) {
-                Log.e("PlaceholderFragment", "Error ", e);
+                Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting
                 // to parse it.
-                forecastJsonStr = null;
+                return null;
+
             } finally{
                 if (urlConnection != null) {
                     urlConnection.disconnect();
@@ -177,7 +187,7 @@ public class ForecastFragment extends Fragment {
                     try {
                         reader.close();
                     } catch (final IOException e) {
-                        Log.e("PlaceholderFragment", "Error closing stream", e);
+                        Log.e(LOG_TAG, "Error closing stream", e);
                     }
                 }
             }
