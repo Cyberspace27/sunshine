@@ -9,5 +9,9 @@
     tools:context="app.com.example.android.sunshine.DetailActivity$PlaceholderFragment"
     tools:showIn="@layout/activity_detail">
 
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:id="@+id/detail_text"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>
