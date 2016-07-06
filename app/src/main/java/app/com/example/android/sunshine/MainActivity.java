@@ -15,8 +15,6 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback{
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    private static final String TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     private boolean mTwoPane;
